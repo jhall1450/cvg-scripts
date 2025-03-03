@@ -23,8 +23,10 @@ def main():
       departureATIS = i["datis"]
 
   eastern_tz = pytz.timezone('US/Eastern')
+  utc_tz = pytz.timezone('UTC')
   now = datetime.datetime.now()
-  now_eastern = eastern_tz.localize(now)
+  now_utc = utc_tz.localize(now)
+  now_eastern = now_utc.astimezone(eastern_tz)
   formatted_time = now_eastern.strftime("%Y-%m-%d %H:%M:%S")
 
   discordHeaders = {"Content-Type":"application/json"}
