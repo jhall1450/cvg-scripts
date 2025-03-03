@@ -45,8 +45,12 @@ def main():
         else:
           forecastArray.append({"name": friendlyTime,"value": "Wind: {} mph \n Gust: {} mph \n Direction: {} ".format(j["wind_mph"],j["gust_mph"],j["wind_dir"]),"inline":"true"})
 
+  eastern_tz = pytz.timezone('US/Eastern')
+  utc_tz = pytz.timezone('UTC')
   now = datetime.datetime.now()
-  formatted_time = now.strftime("%Y-%m-%d")
+  now_utc = utc_tz.localize(now)
+  now_eastern = now_utc.astimezone(eastern_tz)
+  formatted_time = now_eastern.strftime("%Y-%m-%d")
 
   discordHeaders = {"Content-Type":"application/json"}
   discordData = json.dumps ({"embeds": [{"title": formatted_time,"fields": forecastArray}]})
