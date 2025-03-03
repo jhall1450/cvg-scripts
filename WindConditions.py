@@ -28,13 +28,11 @@ def main():
 
   forecastArray = []
 
-  eastern_tz = pytz.timezone('America/New_York')
+  eastern_tz = pytz.timezone('US/Eastern')
+  utc_tz = pytz.timezone('UTC')
 
   for i in data["forecast"]["forecastday"]:
      for j in i["hour"]:
-        eastern_tz = pytz.timezone('US/Eastern')
-        utc_tz = pytz.timezone('UTC')
-
         datetimeObject = datetime.datetime.fromtimestamp(j["time_epoch"])
         datetime_utc = utc_tz.localize(datetimeObject)
         datetime_eastern = datetime_utc.astimezone(eastern_tz)
@@ -45,8 +43,6 @@ def main():
         else:
           forecastArray.append({"name": friendlyTime,"value": "Wind: {} mph \n Gust: {} mph \n Direction: {} ".format(j["wind_mph"],j["gust_mph"],j["wind_dir"]),"inline":"true"})
 
-  eastern_tz = pytz.timezone('US/Eastern')
-  utc_tz = pytz.timezone('UTC')
   now = datetime.datetime.now()
   now_utc = utc_tz.localize(now)
   now_eastern = now_utc.astimezone(eastern_tz)
