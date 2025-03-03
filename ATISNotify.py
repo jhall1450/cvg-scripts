@@ -30,7 +30,7 @@ def main():
   formatted_time = now_eastern.strftime("%Y-%m-%d %H:%M:%S")
 
   discordHeaders = {"Content-Type":"application/json"}
-  discordData = json.dumps ( {"embeds": [{"title": formatted_time,"fields": [{"name": "Arrivals","value": arrivalATIS},{"name": "Departures","value": departureATIS}]}]})
+  discordData = json.dumps ( {"embeds": [{"title": formatted_time + " ET","fields": [{"name": "Arrivals","value": arrivalATIS},{"name": "Departures","value": departureATIS}]}]})
   r = requests.post(discordUrl, headers = discordHeaders, data = discordData)
 
   if r.status_code != 204:

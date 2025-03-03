@@ -39,9 +39,9 @@ def main():
         friendlyTime = datetime_eastern.strftime("%I:%M%p")
         
         if (j["wind_degree"] < windDegreeMax and j["wind_degree"] > windDegreeMin) and (j["wind_mph"] > windSpeedMin):
-          forecastArray.append({"name": friendlyTime,"value": "💨 Conditions favorable for RWY 27 arrivals. \n Wind: {} mph \n Gust: {} mph \n Direction: {} ".format(j["wind_mph"],j["gust_mph"],j["wind_dir"]),"inline":"true"})
+          forecastArray.append({"name": friendlyTime,"value": "💨 Conditions favorable for RWY 27 arrivals.\n Wind: {} mph\n Gust: {} mph\n Direction: {} ".format(j["wind_mph"],j["gust_mph"],j["wind_dir"]),"inline":"true"})
         else:
-          forecastArray.append({"name": friendlyTime,"value": "Wind: {} mph \n Gust: {} mph \n Direction: {} ".format(j["wind_mph"],j["gust_mph"],j["wind_dir"]),"inline":"true"})
+          forecastArray.append({"name": friendlyTime,"value": "Wind: {} mph\nGust: {} mph\nDirection: {} ".format(j["wind_mph"],j["gust_mph"],j["wind_dir"]),"inline":"true"})
 
   now = datetime.datetime.now()
   now_utc = utc_tz.localize(now)
