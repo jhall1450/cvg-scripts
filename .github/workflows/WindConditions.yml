@@ -3,7 +3,7 @@ name: run windconditions.py
 on:
   workflow_dispatch:
   schedule:
-    - cron: "20 12 * * *" # run at 12:20 every day
+    - cron: "20 17 * * *" # run at 12:20 every day
 
 jobs:
   build:
