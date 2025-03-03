@@ -4,13 +4,11 @@ import datetime
 import os
 import pytz
 
-def main():
-  discordUrl = "https://discord.com/api/webhooks/1345905908202602606/ULujb6AwXnJ3gRaXlxyyjdO--iLranqq_fdLAlOzgjyVPL7qGzHG5zSeR0AsGeIdnY8t"
-  
-  # try:
-  #   discordUrl = os.environ["DISCORDWINDWEBHOOK"]
-  # except KeyError:
-  #     raise Exception("Discord webhook not available!")
+def main():  
+  try:
+    discordUrl = os.environ["DISCORDWINDWEBHOOK"]
+  except KeyError:
+      raise Exception("Discord webhook not available!")
 
   windDegreeMax = 315
   windDegreeMin = 225
