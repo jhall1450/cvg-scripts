@@ -1,4 +1,4 @@
-name: run atisnotify.py
+name: run windconditions.py
 
 on:
   workflow_dispatch:
