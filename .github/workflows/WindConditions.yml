@@ -3,7 +3,7 @@ name: run windconditions.py
 on:
   workflow_dispatch:
   schedule:
-    - cron: "20 17 * * *" # run at 12:20 every day
+    - cron: "20 17 * * *" # run at 12:20 AM ET every day
 
 jobs:
   build:
@@ -25,4 +25,5 @@ jobs:
       - name: execute py script
         env:
           DISCORDWINDWEBHOOK: ${{ secrets.DISCORDWINDWEBHOOK }}
+          WEATHERAPIKEY: ${{ secrets.WEATHERAPIKEY }}
         run: python WindConditions.py

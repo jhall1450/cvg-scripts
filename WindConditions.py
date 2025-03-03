@@ -9,17 +9,21 @@ def main():
     discordUrl = os.environ["DISCORDWINDWEBHOOK"]
   except KeyError:
       raise Exception("Discord webhook not available!")
+  
+  try:
+    weatherAPIKey = os.environ["WEATHERAPIKEY"]
+  except KeyError:
+      raise Exception("Weather API key not available!")
 
   windDegreeMax = 315
   windDegreeMin = 225
   windSpeedMin = 5
 
-  apiKey = "3f4a54aaa3ce4097ae6185031250203"
   location = "39.04456,-84.67229"
   forecastDays = 1
   airQualityInfo = "no"
   weatherAlerts = "no"
-  url = "https://api.weatherapi.com/v1/forecast.json?key={}&q={}&days={}&aqi={}&alerts={}".format(apiKey, location, forecastDays,airQualityInfo,weatherAlerts)
+  url = "https://api.weatherapi.com/v1/forecast.json?key={}&q={}&days={}&aqi={}&alerts={}".format(weatherAPIKey, location, forecastDays,airQualityInfo,weatherAlerts)
 
   res = requests.get(url)
   data = json.loads(res.text)
