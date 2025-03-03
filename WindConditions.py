@@ -5,10 +5,12 @@ import os
 import pytz
 
 def main():
-  try:
-    discordUrl = os.environ["DISCORDWINDWEBHOOK"]
-  except KeyError:
-      raise Exception("Discord webhook not available!")
+  discordUrl = "https://discord.com/api/webhooks/1345905908202602606/ULujb6AwXnJ3gRaXlxyyjdO--iLranqq_fdLAlOzgjyVPL7qGzHG5zSeR0AsGeIdnY8t"
+  
+  # try:
+  #   discordUrl = os.environ["DISCORDWINDWEBHOOK"]
+  # except KeyError:
+  #     raise Exception("Discord webhook not available!")
 
   windDegreeMax = 315
   windDegreeMin = 225
@@ -26,13 +28,17 @@ def main():
 
   forecastArray = []
 
-  eastern_tz = pytz.timezone('US/Eastern')
+  eastern_tz = pytz.timezone('America/New_York')
 
   for i in data["forecast"]["forecastday"]:
-     for j in i["hour"]:        
+     for j in i["hour"]:
+        eastern_tz = pytz.timezone('US/Eastern')
+        utc_tz = pytz.timezone('UTC')
+
         datetimeObject = datetime.datetime.fromtimestamp(j["time_epoch"])
-        easternTime = eastern_tz.localize(datetimeObject)
-        friendlyTime = easternTime.strftime("%I:%M%p")
+        datetime_utc = utc_tz.localize(datetimeObject)
+        datetime_eastern = datetime_utc.astimezone(eastern_tz)
+        friendlyTime = datetime_eastern.strftime("%I:%M%p")
         
         if (j["wind_degree"] < windDegreeMax and j["wind_degree"] > windDegreeMin) and (j["wind_mph"] > windSpeedMin):
           forecastArray.append({"name": friendlyTime,"value": "💨 Conditions favorable for RWY 27 arrivals. \n Wind: {} mph \n Gust: {} mph \n Direction: {} ".format(j["wind_mph"],j["gust_mph"],j["wind_dir"]),"inline":"true"})
