@@ -2,6 +2,7 @@ import requests
 import json
 import datetime
 import os
+import pytz
 
 def main():
   try:
@@ -25,10 +26,13 @@ def main():
 
   forecastArray = []
 
+  eastern_tz = pytz.timezone('US/Eastern')
+
   for i in data["forecast"]["forecastday"]:
      for j in i["hour"]:        
         datetimeObject = datetime.datetime.fromtimestamp(j["time_epoch"])
-        friendlyTime = datetimeObject.strftime("%I:%M%p")
+        easternTime = eastern_tz.localize(datetimeObject)
+        friendlyTime = easternTime.strftime("%I:%M%p")
         
         if (j["wind_degree"] < windDegreeMax and j["wind_degree"] > windDegreeMin) and (j["wind_mph"] > windSpeedMin):
           forecastArray.append({"name": friendlyTime,"value": "💨 Conditions favorable for RWY 27 arrivals. \n Wind: {} mph \n Gust: {} mph \n Direction: {} ".format(j["wind_mph"],j["gust_mph"],j["wind_dir"]),"inline":"true"})

@@ -2,6 +2,7 @@ import requests
 import json
 import datetime
 import os
+import pytz
 
 def main():
 
@@ -21,8 +22,10 @@ def main():
     elif i["type"] == "dep":
       departureATIS = i["datis"]
 
+  eastern_tz = pytz.timezone('US/Eastern')
   now = datetime.datetime.now()
-  formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
+  now_eastern = eastern_tz.localize(now)
+  formatted_time = now_eastern.strftime("%Y-%m-%d %H:%M:%S")
 
   discordHeaders = {"Content-Type":"application/json"}
   discordData = json.dumps ( {"embeds": [{"title": formatted_time,"fields": [{"name": "Arrivals","value": arrivalATIS},{"name": "Departures","value": departureATIS}]}]})
